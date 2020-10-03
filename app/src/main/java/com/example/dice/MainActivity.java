@@ -1,7 +1,6 @@
 package com.example.dice;
-
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,52 +9,59 @@ public class MainActivity extends AppCompatActivity {
 
     int firstDice = 0;
     int secondDice = 0;
+    ImageView firstImage;
+    ImageView secondImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
+        firstImage = (ImageView) findViewById(R.id.firstImage);
+        secondImage = (ImageView) findViewById(R.id.secondImage);
 
+        if (savedInstanceState != null){
+            firstDice = savedInstanceState.getInt("num1");
+            secondDice = savedInstanceState.getInt("num2");
+            getFirstDice(firstDice);
+            getSecondDice(secondDice);
+        }
+    }
 
     public int rand() {
         int numb = 1 + (int) (Math.random() * 6);
-
         return numb;
     }
 
 
     public void getFirstDice(int number) {
-        ImageView image = (ImageView) findViewById(R.id.firstImage);
         if (number == 1) {
-            image.setImageResource(R.drawable.one);
+            firstImage.setImageResource(R.drawable.one);
         } else if (number == 2) {
-            image.setImageResource(R.drawable.two);
+            firstImage.setImageResource(R.drawable.two);
         } else if (number == 3) {
-            image.setImageResource(R.drawable.three);
+            firstImage.setImageResource(R.drawable.three);
         } else if (number == 4) {
-            image.setImageResource(R.drawable.four);
+            firstImage.setImageResource(R.drawable.four);
         } else if (number == 5) {
-            image.setImageResource(R.drawable.five);
+            firstImage.setImageResource(R.drawable.five);
         } else if (number == 6) {
-            image.setImageResource(R.drawable.six);
+            firstImage.setImageResource(R.drawable.six);
         }
     }
 
     public void getSecondDice(int number) {
-        ImageView image = (ImageView) findViewById(R.id.secondImage);
         if (number == 1) {
-            image.setImageResource(R.drawable.one);
+            secondImage.setImageResource(R.drawable.one);
         } else if (number == 2) {
-            image.setImageResource(R.drawable.two);
+            secondImage.setImageResource(R.drawable.two);
         } else if (number == 3) {
-            image.setImageResource(R.drawable.three);
+            secondImage.setImageResource(R.drawable.three);
         } else if (number == 4) {
-            image.setImageResource(R.drawable.four);
+            secondImage.setImageResource(R.drawable.four);
         } else if (number == 5) {
-            image.setImageResource(R.drawable.five);
+            secondImage.setImageResource(R.drawable.five);
         } else if (number == 6) {
-            image.setImageResource(R.drawable.six);
+            secondImage.setImageResource(R.drawable.six);
         }
     }
 
@@ -65,5 +71,13 @@ public class MainActivity extends AppCompatActivity {
         secondDice = rand();
         getFirstDice(firstDice);
         getSecondDice(secondDice);
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("num1",firstDice);
+        outState.putInt("num2",secondDice);
+
     }
 }
